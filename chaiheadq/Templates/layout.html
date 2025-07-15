@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {% block title %}Chai our Django{% endblock title %}
+  </title>
+  
+  <!-- Bootstrap CSS (ensure it's loaded) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: #007BFF; /* Bootstrap primary blue */
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .content-wrapper {
+      flex: 1;
+    }
+    nav.navbar {
+      background-color: white !important;
+    }
+    nav .nav-link {
+      color: #007BFF !important;
+    }
+    footer {
+      background-color: #0056b3;
+      padding: 1rem 0;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Bar -->
+  <div style="height: 8px; background-color: #212529;"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Tweetbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Left side nav links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link disabled" aria-disabled="true">Disabled</a></li>
+        </ul>
+
+        <!-- Search form -->
+        <form class="d-flex me-2" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+
+        <!-- Authentication buttons -->
+        {% if user.is_authenticated %}
+          <div class="d-flex">
+            <span class="navbar-text me-3">Welcome, {{ user.username }}!</span>
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+          </div>
+        {% else %}
+          <div class="d-flex">
+            <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container my-5 content-wrapper">
+    {% block content %}
+    <!-- Your page content goes here -->
+    {% endblock content %}
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      &copy; 2025 Tweetbar. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS (make sure this is included if dropdowns are used) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
